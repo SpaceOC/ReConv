@@ -10,4 +10,8 @@
 # Why Haxe?
 - I tried to do it in C++, but ran into huge difficulties. Someday (or maybe never) I will rewrite it in one of the two languages: Go, C++
 
+# Warning!
+- The program is not perfect and may generate errors. 
+- Do not expect it to do the conversion perfectly! You will still have to tweak after it!!!
+
 Good luck :D
