@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="ReConv" package="com.spaceoc.reconv" version="0.0.1" company="SpaceOC" />
+	<app main="Main" path="export" file="ReConv" />
+	
+	<source path="source" />
+
+	<haxelib name="lime" />
+	<haxelib name="flixel" />
+	<haxelib name="tjson" />
+	<haxelib name="hxcpp-debug-server" if="debug"/>
+	
+	<!--Disable deprecated warnings-->
+	<haxedef name='no-deprecation-warnings' />
+	
+</project>
