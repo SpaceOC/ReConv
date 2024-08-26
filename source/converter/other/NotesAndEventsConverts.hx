@@ -8,6 +8,7 @@ class NotesConverts {
     public static function toCodename(sections:Array<PsychSwagSection>, ?player:Bool = true):Array<CodenameChartNote> {
         var temp:Array<CodenameChartNote> = [];
         for (section in sections) {
+            if (section == null) continue;
             // player = mustHitSection!
             var hitSection:Bool = (player ? section.mustHitSection : !section.mustHitSection);
             if (hitSection && section.sectionNotes.length > 0) {

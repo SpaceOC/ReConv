@@ -42,6 +42,7 @@ class FromPE {
         }
 
         for (section in chart.notes) {
+            if (section == null) continue;
             for (event in section.sectionNotes) {
                 if (section.sectionNotes.length >= 3 && Std.parseInt(event[2]) == null) {
                     rawEvents.push({
@@ -71,6 +72,7 @@ class FromPE {
             }
             
             for (section in eventsFile.notes) {
+                if (section == null) continue;
                 for (event in section.sectionNotes) {
                     if (section.sectionNotes.length >= 3 && Std.parseInt(event[2]) == null) {
                         rawEvents.push({
@@ -88,6 +90,7 @@ class FromPE {
            
         var firstSector:Bool = true;
         for (section in chart.notes) {
+            if (section == null) continue;
             if (section.sectionNotes.length > 0) {
                 events.push({
                     name: "Camera Movement",
@@ -116,6 +119,7 @@ class FromPE {
 
     private static function __playerSinglePushNotes(sections:PsychSwagSong):Void {
         for (section in sections.notes) {
+            if (section == null) continue;
             if (!section.mustHitSection && section.sectionNotes.length > 0) {
                 for (notes in section.sectionNotes) {
                     if (notes[1] > 3) {
@@ -135,6 +139,7 @@ class FromPE {
     
     private static function __opponentSinglePushNotes(sections:PsychSwagSong):Void {
         for (section in sections.notes) {
+            if (section == null) continue;
             if (section.mustHitSection && section.sectionNotes.length > 0) {
                 for (notes in section.sectionNotes) {
                     if (notes[1] > 3) {
