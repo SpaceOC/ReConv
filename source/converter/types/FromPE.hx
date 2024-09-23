@@ -65,24 +65,26 @@ class FromPE {
                     events.push(event);
 
                 for (warn in EventsConverts.unknownEvents)
-                    if (!ArrayUtils.itWas(warn, unknownEvents)) unknownEvents.push(warn);
+                    if (!unknownEvents.contains(warn)) unknownEvents.push(warn);
 
                 for (warn in EventsConverts.impossibleEvents)
-                    if (!ArrayUtils.itWas(warn, impossibleEvents)) impossibleEvents.push(warn);
+                    if (!impossibleEvents.contains(warn)) impossibleEvents.push(warn);
             }
             
-            for (section in eventsFile.notes) {
-                if (section == null) continue;
-                for (event in section.sectionNotes) {
-                    if (section.sectionNotes.length >= 3 && Std.parseInt(event[2]) == null) {
-                        rawEvents.push({
-                            time: event[0],
-                            events: [{
-                                name: event[2],
-                                param1: event[3],
-                                param2: event[4]
-                            }]
-                        });
+            if (eventsFile.notes != null) {
+                for (section in eventsFile.notes) {
+                    if (section == null) continue;
+                    for (event in section.sectionNotes) {
+                        if (section.sectionNotes.length >= 3 && Std.parseInt(event[2]) == null) {
+                            rawEvents.push({
+                                time: event[0],
+                                events: [{
+                                    name: event[2],
+                                    param1: event[3],
+                                    param2: event[4]
+                                }]
+                            });
+                        }
                     }
                 }
             }
@@ -108,14 +110,13 @@ class FromPE {
             stage: chart.stage,
             meta: {},
             scrollSpeed: chart.speed,
-            noteTypes: []
+            noteTypes: NotesConverts.codenameNotesArray
         };
+
+        NotesConverts.codenameNotesArray = [];
         
         return finaleChartData;
     }
-
-
-
 
     private static function __playerSinglePushNotes(sections:PsychSwagSong):Void {
         for (section in sections.notes) {
@@ -123,11 +124,18 @@ class FromPE {
             if (!section.mustHitSection && section.sectionNotes.length > 0) {
                 for (notes in section.sectionNotes) {
                     if (notes[1] > 3) {
+                        var noteType:Int = 0;
+                        if (section.sectionNotes.length > 3 && Std.parseInt(notes[3]) == null) {
+                            if (notes[3] != null) {
+                                if (!NotesConverts.codenameNotesArray.contains(notes[3])) NotesConverts.codenameNotesArray.push(notes[3]);
+                                noteType = (1 + NotesConverts.codenameNotesArray.indexOf(notes[3]));
+                            }
+                        }
                         basePlayerCSL.notes.push(
                             Reflect.copy({
                                 time: (notes[0] != null ? notes[0] : 0.0),
                                 id: Std.int((notes[1] - 4)),
-                                type: 0,
+                                type: noteType,
                                 sLen: (notes[2] != null ? notes[2] : 0.0)
                             })
                         );
@@ -143,11 +151,18 @@ class FromPE {
             if (section.mustHitSection && section.sectionNotes.length > 0) {
                 for (notes in section.sectionNotes) {
                     if (notes[1] > 3) {
+                        var noteType:Int = 0;
+                        if (section.sectionNotes.length > 3 && Std.parseInt(notes[3]) == null) {
+                            if (notes[3] != null) {
+                                if (!NotesConverts.codenameNotesArray.contains(notes[3])) NotesConverts.codenameNotesArray.push(notes[3]);
+                                noteType = (1 + NotesConverts.codenameNotesArray.indexOf(notes[3]));
+                            }
+                        }
                         baseOpponentCSL.notes.push(
                             Reflect.copy({
                                 time: (notes[0] != null ? notes[0] : 0.0),
                                 id: Std.int((notes[1] - 4)),
-                                type: 0,
+                                type: noteType,
                                 sLen: (notes[2] != null ? notes[2] : 0.0)
                             })
                         );

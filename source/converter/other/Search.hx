@@ -30,7 +30,7 @@ class Search {
         var passedFolders:Array<String> = [ for (folder in tempChartsPaths) Reflect.copy(folder.folderPath) ];
         for (file in FileSystem.readDirectory(path)) {
             var filePath:String = path + "/" + file;
-            if ((FileSystem.isDirectory(path) && path == "ReConvData/result") || ArrayUtils.itWas(path, passedFolders)) 
+            if ((FileSystem.isDirectory(path) && path == "ReConvData/result") || passedFolders.contains(path)) 
                 continue;
 
             if (filePath.endsWith(".json") && !filePath.endsWith("dialogue.json") && !filePath.endsWith("events.json")) {

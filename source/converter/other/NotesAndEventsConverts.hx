@@ -5,20 +5,28 @@ import converter.dataCharts.Psych;
 import converter.other.RawEvent;
 
 class NotesConverts {
+    public static var codenameNotesArray:Array<String> = [];
+
     public static function toCodename(sections:Array<PsychSwagSection>, ?player:Bool = true):Array<CodenameChartNote> {
         var temp:Array<CodenameChartNote> = [];
         for (section in sections) {
             if (section == null) continue;
-            // player = mustHitSection!
             var hitSection:Bool = (player ? section.mustHitSection : !section.mustHitSection);
             if (hitSection && section.sectionNotes.length > 0) {
                 for (notes in section.sectionNotes) {
                     if (notes[1] < 4) {
+                        var noteType:Int = 0;
+                        if (section.sectionNotes.length > 3 && Std.parseInt(notes[3]) == null) {
+                            if (notes[3] != null) {
+                                if (!codenameNotesArray.contains(notes[3])) codenameNotesArray.push(notes[3]);
+                                noteType = (1 + codenameNotesArray.indexOf(notes[3]));
+                            }
+                        }
                         temp.push(
                             Reflect.copy({
                                 time: (notes[0] != null ? notes[0] : 0.0),
                                 id: Std.int((notes[1])),
-                                type: 0,
+                                type: noteType,
                                 sLen: (notes[2] != null ? notes[2] : 0.0)
                             })
                         );
@@ -91,7 +99,7 @@ class EventsConverts {
                     });
                 }
                 else {
-                    if (!ArrayUtils.itWas(event.name, unknownEvents)) unknownEvents.push(event.name);
+                    if (!unknownEvents.contains(event.name)) unknownEvents.push(event.name);
                     events.push({
                         name: event.name,
                         time: rawEvent.time,
