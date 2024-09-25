@@ -125,11 +125,14 @@ class FromPE {
                 for (notes in section.sectionNotes) {
                     if (notes[1] > 3) {
                         var noteType:Int = 0;
-                        if (section.sectionNotes.length > 3 && Std.parseInt(notes[3]) == null) {
-                            if (notes[3] != null) {
-                                if (!NotesConverts.codenameNotesArray.contains(notes[3])) NotesConverts.codenameNotesArray.push(notes[3]);
-                                noteType = (1 + NotesConverts.codenameNotesArray.indexOf(notes[3]));
-                            }
+                        var specialNote:Bool = section.sectionNotes.length > 3 && Std.parseInt(notes[3]) == null && notes[3] != null;
+                        if (specialNote) {
+                            if (!NotesConverts.codenameNotesArray.contains(notes[3])) NotesConverts.codenameNotesArray.push(notes[3]);
+                            noteType = (1 + NotesConverts.codenameNotesArray.indexOf(notes[3]));
+                        }
+                        if (section.gfSection) {
+                            if (!NotesConverts.codenameNotesArray.contains("GF Sing")) NotesConverts.codenameNotesArray.push("GF Sing");
+                            noteType = (1 + NotesConverts.codenameNotesArray.indexOf((!specialNote ? "GF Sing" : notes[3])));
                         }
                         basePlayerCSL.notes.push(
                             Reflect.copy({
@@ -152,11 +155,14 @@ class FromPE {
                 for (notes in section.sectionNotes) {
                     if (notes[1] > 3) {
                         var noteType:Int = 0;
-                        if (section.sectionNotes.length > 3 && Std.parseInt(notes[3]) == null) {
-                            if (notes[3] != null) {
-                                if (!NotesConverts.codenameNotesArray.contains(notes[3])) NotesConverts.codenameNotesArray.push(notes[3]);
-                                noteType = (1 + NotesConverts.codenameNotesArray.indexOf(notes[3]));
-                            }
+                        var specialNote:Bool = section.sectionNotes.length > 3 && Std.parseInt(notes[3]) == null && notes[3] != null;
+                        if (specialNote) {
+                            if (!NotesConverts.codenameNotesArray.contains(notes[3])) NotesConverts.codenameNotesArray.push(notes[3]);
+                            noteType = (1 + NotesConverts.codenameNotesArray.indexOf(notes[3]));
+                        }
+                        if (section.gfSection) {
+                            if (!NotesConverts.codenameNotesArray.contains("GF Sing")) NotesConverts.codenameNotesArray.push("GF Sing");
+                            noteType = (1 + NotesConverts.codenameNotesArray.indexOf((!specialNote ? "GF Sing" : notes[3])));
                         }
                         baseOpponentCSL.notes.push(
                             Reflect.copy({
