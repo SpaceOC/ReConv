@@ -130,7 +130,7 @@ class FromPE {
                             if (!NotesConverts.codenameNotesArray.contains(notes[3])) NotesConverts.codenameNotesArray.push(notes[3]);
                             noteType = (1 + NotesConverts.codenameNotesArray.indexOf(notes[3]));
                         }
-                        if (section.gfSection) {
+                        if (section.gfSection && section.mustHitSection) {
                             if (!NotesConverts.codenameNotesArray.contains("GF Sing")) NotesConverts.codenameNotesArray.push("GF Sing");
                             noteType = (1 + NotesConverts.codenameNotesArray.indexOf((!specialNote ? "GF Sing" : notes[3])));
                         }
@@ -160,7 +160,7 @@ class FromPE {
                             if (!NotesConverts.codenameNotesArray.contains(notes[3])) NotesConverts.codenameNotesArray.push(notes[3]);
                             noteType = (1 + NotesConverts.codenameNotesArray.indexOf(notes[3]));
                         }
-                        if (section.gfSection) {
+                        if (section.gfSection && !section.mustHitSection) {
                             if (!NotesConverts.codenameNotesArray.contains("GF Sing")) NotesConverts.codenameNotesArray.push("GF Sing");
                             noteType = (1 + NotesConverts.codenameNotesArray.indexOf((!specialNote ? "GF Sing" : notes[3])));
                         }
